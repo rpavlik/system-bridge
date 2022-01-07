@@ -9,10 +9,14 @@ from PySide6.QtWidgets import QMenu, QSystemTrayIcon, QWidget
 from systembridgeshared.base import Base
 from systembridgeshared.common import get_user_data_directory
 
-PATH_BRIDGES_OPEN_ON = "/app/bridges/openon.html"
-PATH_BRIDGES_SETUP = "/app/bridges/setup.html"
-PATH_DATA = "/app/data.html"
-PATH_SETTINGS = "/app/settings.html"
+from .base import Base
+
+PATH_BRIDGES_OPEN_ON = "/app/bridges/openon"
+PATH_BRIDGES_SETUP = "/app/bridges/setup"
+PATH_DATA = "/app/data"
+PATH_LOGS = "/app/logs"
+PATH_SETTINGS = "/app/settings"
+PATH_WEBRTC = "/app/webrtc"
 
 URL_DISCUSSIONS = "https://github.com/timmo001/system-bridge/discussions"
 URL_DOCS = "https://system-bridge.timmo.dev"
@@ -45,6 +49,11 @@ class SystemTray(Base, QSystemTrayIcon):
 
         action_settings: QAction = menu.addAction("Open Settings")
         action_settings.triggered.connect(self._show_settings)
+
+        action_webrtc: QAction = menu.addAction("WebRTC")
+        action_webrtc.triggered.connect(self.show_webrtc)
+
+        menu.addSeparator()
 
         action_data: QAction = menu.addAction("View Data")
         action_data.triggered.connect(self._show_data)
@@ -165,15 +174,11 @@ class SystemTray(Base, QSystemTrayIcon):
         self._logger.info("Open: %s", log_path)
         open_new_tab(log_path)
 
-    # def _show_bridges_send_to(self) -> None:
-    #     """Show bridges open url on window"""
-    #     self.callback_show_window(PATH_BRIDGES_OPEN_ON, False, 620, 420)
+    def show_webrtc(self) -> None:
+        """Show WebRTC window"""
+        self.callback_show_window(PATH_WEBRTC, False)
 
-    # def _show_bridges_setup(self) -> None:
-    #     """Show bridges setup window"""
-    #     self.callback_show_window(PATH_BRIDGES_SETUP, False)
-
-    def _show_data(self) -> None:
+    def show_data(self) -> None:
         """Show api data"""
         self.callback_show_window(PATH_DATA, False)
 
