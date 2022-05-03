@@ -29,6 +29,7 @@ from systembridgebackend.server.media import (
 )
 from systembridgebackend.server.notification import handler_notification
 from systembridgebackend.server.open import handler_open
+from systembridgebackend.server.tts import handler_tts
 from systembridgebackend.server.websocket import WebSocketHandler
 
 
@@ -191,6 +192,11 @@ class Server(Base):
         self._server.add_route(
             lambda r: _handler_generic(r, handler_open),
             "/api/open",
+            methods=["POST"],
+        )
+        self._server.add_route(
+            lambda r: _handler_generic(r, handler_tts),
+            "/api/tts",
             methods=["POST"],
         )
 
