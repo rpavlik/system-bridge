@@ -15,6 +15,7 @@ from systembridgebackend.modules.memory.update import MemoryUpdate
 from systembridgebackend.modules.network.update import NetworkUpdate
 from systembridgebackend.modules.sensors.update import SensorsUpdate
 from systembridgebackend.modules.system.update import SystemUpdate
+from systembridgebackend.modules.usb.update import USBUpdate
 
 
 class Update(Base):
@@ -33,6 +34,7 @@ class Update(Base):
             {"name": "disk", "cls": DiskUpdate(self._database)},
             {"name": "display", "cls": DisplayUpdate(self._database)},
             {"name": "system", "cls": SystemUpdate(self._database)},
+            {"name": "usb", "cls": USBUpdate(self._database)},
         ]
         self._classes_frequent = [
             {"name": "sensors", "cls": SensorsUpdate(self._database)},
