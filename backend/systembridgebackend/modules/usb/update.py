@@ -1,5 +1,6 @@
 """USB Bridge: Update USB"""
 import asyncio
+
 from systembridgeshared.database import Database
 
 from systembridgebackend.modules.base import ModuleUpdateBase
@@ -20,11 +21,12 @@ class USBUpdate(ModuleUpdateBase):
     async def update_devices(self) -> None:
         """Update devices"""
         for device in self._usb.devices():
-            await self._database.write(
-                "usb",
-                f"device_{device['address']}",
-                device,
-            )
+            self._logger.info("Device: %s", device)
+            # await self._database.write(
+            #     "usb",
+            #     f"device_{device['address']}",
+            #     device,
+            # )
 
     async def update_all_data(self) -> None:
         """Update data"""
